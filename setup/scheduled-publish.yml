@@ -1,0 +1,26 @@
+# MOVE THIS FILE to .github/workflows/scheduled-publish.yml in your repo (create the folders if needed).
+# Publishes scheduled blog posts. A post with a future date is left out of the site until the
+# first build on or after that day (India time). This workflow asks Cloudflare Pages to rebuild
+# every morning so scheduled posts go live on their day without anyone pressing a button.
+#
+# One-time setup:
+#   1. Cloudflare → your Pages project → Settings → Builds → Deploy hooks → Add (branch: main). Copy the URL.
+#   2. GitHub → this repo → Settings → Secrets and variables → Actions → New secret
+#      Name: CLOUDFLARE_DEPLOY_HOOK   Value: the URL from step 1.
+# Without the secret this workflow does nothing (and does not fail).
+name: Publish scheduled posts
+on:
+  schedule:
+    - cron: '35 0 * * *'   # 06:05 India time, every day
+  workflow_dispatch: {}
+permissions: {}
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Cloudflare Pages build
+        env:
+          HOOK: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then echo "CLOUDFLARE_DEPLOY_HOOK not set; skipping."; exit 0; fi
+          curl -fsS -X POST "$HOOK" > /dev/null && echo "Rebuild requested."

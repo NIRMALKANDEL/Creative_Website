@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>What's Beyond blog</title>
+  <link>https://REPLACE-with-client-domain.com/blog/</link>
+  <atom:link href="https://REPLACE-with-client-domain.com/blog/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Practical social media, content and Instagram growth tips from What's Beyond.</description>
+  <language>en-IN</language>
+  <item>
+    <title>How to grow brand through reels.</title>
+    <link>https://REPLACE-with-client-domain.com/blog/how-to-grow-brand-through-reels</link>
+    <guid isPermaLink="true">https://REPLACE-with-client-domain.com/blog/how-to-grow-brand-through-reels</guid>
+    <pubDate>Sat, 17 Oct 2026 03:30:00 GMT</pubDate>
+    <description>Brand need reels on Instagram to grow</description>
+    <category>Instagram growth</category>
+  </item>
+  <item>
+    <title>TEST BLog</title>
+    <link>https://REPLACE-with-client-domain.com/blog/test-blog</link>
+    <guid isPermaLink="true">https://REPLACE-with-client-domain.com/blog/test-blog</guid>
+    <pubDate>Sat, 17 Oct 2026 03:30:00 GMT</pubDate>
+    <description>Here is the test blog.</description>
+    <category>Content &amp; branding</category>
+  </item>
+  <item>
+    <title>Impact of reels in Intagra,</title>
+    <link>https://REPLACE-with-client-domain.com/blog/impact-of-reels-in-intagra</link>
+    <guid isPermaLink="true">https://REPLACE-with-client-domain.com/blog/impact-of-reels-in-intagra</guid>
+    <pubDate>Fri, 16 Oct 2026 03:30:00 GMT</pubDate>
+    <description>To understand the use off reels in the Instagram page for our brand reach</description>
+    <category>Instagram growth</category>
+  </item>
+</channel>
+</rss>

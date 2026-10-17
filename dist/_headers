@@ -1,0 +1,29 @@
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  X-Frame-Options: DENY
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'sha256-RwbA7/Euh7MjusNvwiUa4Bm9OLpueMVETcMc7yBiG4c=' https://app.cal.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; media-src 'self' https://*.b-cdn.net; font-src 'self'; frame-src https://cal.com https://app.cal.com; connect-src 'self' https://api.web3forms.com https://app.cal.com https://cal.com https://cloudflareinsights.com; form-action 'self' https://api.web3forms.com; base-uri 'self'; frame-ancestors 'none'
+
+/assets/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/reels/*
+  Cache-Control: public, max-age=2592000
+
+/assets/blog/*
+  Cache-Control: public, max-age=2592000
+  Content-Security-Policy: default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; sandbox
+  X-Content-Type-Options: nosniff
+
+/blog/feed.xml
+  Content-Type: application/rss+xml; charset=utf-8
+
+/admin/*
+  ! Content-Security-Policy-Report-Only
+  X-Robots-Tag: noindex
+  Cache-Control: no-store

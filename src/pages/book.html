@@ -1,0 +1,73 @@
+<!--meta {"path": "/book", "nav": "book", "title": "Book a free discovery call — What's Beyond", "description": "Pick a time for a free 30-minute discovery call with What's Beyond. Times show in your own time zone. Prefer to write? Send a short message instead."} -->
+<section class="page-hero">
+  <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span></div>
+  <div class="grid-lines" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <span class="chip">{{icon:clock}} 30 minutes · free · no obligation</span>
+    <h1>Let's talk about your <span class="grad-text">brand</span>.</h1>
+    <p class="lead">Pick a time for a video call, or send a two-line enquiry. Whichever is quicker for you.</p>
+    <div class="jump-links">
+      <a class="btn btn-primary" href="#call">{{icon:calendar}} Book a call</a>
+      <a class="btn btn-ghost" href="#enquiry">{{icon:message}} Send an enquiry</a>
+    </div>
+  </div>
+</section>
+
+<section class="section book-section" aria-label="Get in touch">
+  <div class="container book-grid">
+    <div class="book-col" id="call">
+      <div class="book-col-head">
+        <h2 id="cal-title">{{icon:calendar}} Book a call</h2>
+        <p class="muted">Choose a day and time. You'll get an email invite with the video link.</p>
+      </div>
+      {{tzBox}}
+      <div class="card cal-shell">
+        <div class="cal-placeholder" data-cal-loading>
+          <div class="cal-skeleton" aria-hidden="true">{{calSkeleton}}</div>
+          <h3>Available times load here</h3>
+          <p>If they don't appear, use the button or <a href="https://cal.com/{{calLink}}" target="_blank" rel="noopener">open the booking page</a>.</p>
+          <button class="btn btn-primary" type="button" data-load-cal>{{icon:calendar}} Show available times</button>
+        </div>
+        <div class="cal-missing" data-cal-missing hidden>
+          <p><b>Online booking isn't switched on yet.</b> Send the short enquiry and we'll suggest a time, or email <a href="mailto:{{email}}">{{email}}</a>.</p>
+          <a class="btn btn-primary btn-sm" href="#enquiry">Send an enquiry instead</a>
+        </div>
+        <div id="cal-inline" data-cal-host data-cal-ns="page" data-cal-link="{{calLink}}" hidden></div>
+      </div>
+      <p class="muted cp-note">Your call is confirmed only when Cal.com shows the confirmation and sends you the calendar invite.</p>
+    </div>
+
+    <div class="book-col" id="enquiry">
+      <div class="book-col-head">
+        <h2 id="form-title">{{icon:message}} Send an enquiry</h2>
+        <p class="muted">Three quick fields. Everything else is optional.</p>
+      </div>
+      <div class="card enquiry-card">
+        {{enquiryFormPage}}
+      </div>
+      <div class="card what-we-cover">
+        <h3>On the call we'll cover</h3>
+        <ul class="checklist mt-s">
+          <li>{{icon:check}}<span>Where your brand and social are today</span></li>
+          <li>{{icon:check}}<span>Who you want to reach, and what growth means to you</span></li>
+          <li>{{icon:check}}<span>Quick wins you can use, even if we don't work together</span></li>
+          <li>{{icon:check}}<span>Whether we're the right fit, honestly</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" aria-labelledby="after-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">After you book</span>
+      <h2 id="after-title">What happens after you get in touch.</h2>
+    </div>
+    <div class="after-steps">
+      <article class="card step" data-reveal><span class="step-num">01</span><h3>Confirmation</h3><p>Booked a call? Cal.com emails you the video link and invite straight away, and you can reschedule from that email. Sent an enquiry? We reply within one working day (India time).</p></article>
+      <article class="card step" data-reveal style="--d:.08s"><span class="step-num">02</span><h3>The call</h3><p>A relaxed 30-minute video call. Bring your questions; no preparation needed.</p></article>
+      <article class="card step" data-reveal style="--d:.16s"><span class="step-num">03</span><h3>Your next step</h3><p>If it's a fit, we send a short proposal within two working days. If not, you still leave with ideas.</p></article>
+    </div>
+  </div>
+</section>

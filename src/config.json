@@ -1,0 +1,76 @@
+{
+  "_note": "Replace every value marked REPLACE before go-live. Run `node build.mjs` after any change.",
+  "siteName": "What's Beyond",
+  "siteUrl": "https://REPLACE-with-client-domain.com",
+  "email": "hello@REPLACE-domain.com",
+  "instagramHandle": "REPLACE_handle",
+  "instagramUrl": "https://www.instagram.com/REPLACE_handle/",
+  "whatsappNumber": "",
+  "phone": "",
+  "location": {
+    "_help": "Shown in the footer and given to Google. Add streetAddress/postalCode only if you want the office address public.",
+    "city": "Indore",
+    "region": "Madhya Pradesh",
+    "country": "IN",
+    "countryName": "India",
+    "timeZone": "Asia/Kolkata",
+    "streetAddress": "",
+    "postalCode": ""
+  },
+  "calLink": "REPLACE-cal-username/discovery-call",
+  "web3formsKey": "REPLACE-web3forms-access-key",
+  "cms": {
+    "_help": "Blog editor at /admin. repo = the GitHub repository this site deploys from (owner/name).",
+    "repo": "NIRMALKANDEL/Whats-beyond-sample-site-",
+    "branch": "main"
+  },
+  "blog": {
+    "_help": "Categories shown in the blog editor and as filters on /blog/. Rename or add freely; a category only gets its own page once it has a published post. postsPerPage = cards shown before 'Show more posts'.",
+    "postsPerPage": 9,
+    "categories": [
+      "Reels & video",
+      "Instagram growth",
+      "Content & branding",
+      "Paid ads",
+      "Behind the scenes"
+    ]
+  },
+  "look": {
+    "_help": "preset: calm | balanced | vivid. Any value below overrides the preset. glow/grain/grid/spotlight/shimmer: 0 to 1. motion: calm | normal | off. buttons: soft | bright. defaultTheme: system | dark | light (used until the visitor picks one).",
+    "preset": "calm",
+    "defaultTheme": "system"
+  },
+  "cityLine": "Based in Indore, India · working with brands across India and worldwide",
+  "reels": [
+    {
+      "src": "",
+      "poster": "",
+      "label": "Reel 01"
+    },
+    {
+      "src": "",
+      "poster": "",
+      "label": "Reel 02"
+    },
+    {
+      "src": "",
+      "poster": "",
+      "label": "Reel 03"
+    },
+    {
+      "src": "",
+      "poster": "",
+      "label": "Reel 04"
+    },
+    {
+      "src": "",
+      "poster": "",
+      "label": "Reel 05"
+    },
+    {
+      "src": "",
+      "poster": "",
+      "label": "Reel 06"
+    }
+  ]
+}

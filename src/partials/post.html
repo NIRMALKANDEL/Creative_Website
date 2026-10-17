@@ -1,0 +1,32 @@
+<article class="post">
+  <header class="page-hero post-hero">
+    <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span></div>
+    <div class="container post-head">
+      <div class="post-head-text hero-inner">
+        {{postCrumbs}}
+        {{postDraftTag}}
+        <h1>{{postTitle}}</h1>
+        <p class="lead">{{postDescription}}</p>
+        <p class="post-meta post-byline"><span class="avatar avatar--sm" aria-hidden="true">{{logo}}</span><span><strong>{{postAuthor}}</strong><span class="muted"><time datetime="{{postDateIso}}">{{postDateNice}}</time> · {{postReadMins}} min read {{postUpdated}}</span></span></p>
+      </div>
+      {{postCover}}
+    </div>
+  </header>
+  <div class="container post-container">
+    <div class="post-body">
+<!--POST_BODY-->
+    </div>
+    <footer class="post-foot">
+      {{postTags}}
+      {{postShare}}
+    </footer>
+    <aside class="card post-cta">
+      <div>
+        <h2>Want this done for your brand?</h2>
+        <p class="muted">Book a free 30-minute discovery call. No obligation.</p>
+      </div>
+      <a class="btn btn-primary" href="/book" data-contact="call">Book a discovery call {{icon:arrow}}</a>
+    </aside>
+    {{postMore}}
+  </div>
+</article>

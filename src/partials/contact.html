@@ -1,0 +1,29 @@
+<dialog class="contact-panel" id="contact-panel" aria-labelledby="contact-title">
+  <div class="cp-inner">
+    <div class="cp-head">
+      <div>
+        <h2 id="contact-title">Let's talk</h2>
+        <p class="muted">Free and no obligation. Pick whichever is easier for you.</p>
+      </div>
+      <button class="icon-btn" type="button" data-close-contact aria-label="Close">{{icon:close}}</button>
+    </div>
+    <div class="tabs" role="tablist" aria-label="How would you like to get in touch?">
+      <button class="tab" type="button" role="tab" id="tab-call" aria-controls="pane-call" aria-selected="true">{{icon:calendar}}<span><b>Book a call</b><small>30 min, pick a time</small></span></button>
+      <button class="tab" type="button" role="tab" id="tab-enquiry" aria-controls="pane-enquiry" aria-selected="false" tabindex="-1">{{icon:message}}<span><b>Send an enquiry</b><small>Reply in 1 working day</small></span></button>
+    </div>
+    <div class="tab-pane" id="pane-call" role="tabpanel" aria-labelledby="tab-call" tabindex="0">
+      {{tzBox}}
+      <div class="cal-box" data-cal-host data-cal-ns="modal" data-cal-link="{{calLink}}">
+        <div class="cal-loading" data-cal-loading><div class="cal-skeleton" aria-hidden="true">{{calSkeleton}}</div><p class="muted">Loading available times…</p></div>
+      </div>
+      <div class="cal-missing" data-cal-missing hidden>
+        <p><b>Online booking isn't switched on yet.</b> Send a short enquiry and we'll suggest a time, or email <a href="mailto:{{email}}">{{email}}</a>.</p>
+        <button class="btn btn-primary btn-sm" type="button" data-switch-tab="enquiry">Send an enquiry instead</button>
+      </div>
+      <p class="muted cp-note">Your call is confirmed only when Cal.com shows the confirmation and sends you the calendar invite.</p>
+    </div>
+    <div class="tab-pane" id="pane-enquiry" role="tabpanel" aria-labelledby="tab-enquiry" tabindex="0" hidden>
+      {{enquiryFormModal}}
+    </div>
+  </div>
+</dialog>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Blog editor — What's Beyond</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <style>
+    /* Branded loading screen, shown until the editor has started */
+    #wb-boot { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; background: #140B0F; color: #F6ECE6; font: 500 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; transition: opacity .4s; }
+    #wb-boot.done { opacity: 0; pointer-events: none; }
+    #wb-boot .box { display: grid; gap: 14px; justify-items: center; text-align: center; padding: 24px; max-width: 420px; }
+    #wb-boot img { width: 56px; height: 56px; animation: wb-spin 1.6s linear infinite; }
+    #wb-boot h1 { margin: 0; font-size: 20px; letter-spacing: -.01em; }
+    #wb-boot p { margin: 0; color: #BCA8B0; }
+    #wb-boot .err { display: none; color: #FFB3A1; }
+    #wb-boot.failed img { animation: none; opacity: .5; }
+    #wb-boot.failed .err { display: block; }
+    #wb-boot.failed .wait { display: none; }
+    #wb-boot a { color: #FFE08A; }
+    @keyframes wb-spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { #wb-boot img { animation: none; } }
+  </style>
+</head>
+<body>
+  <div id="wb-boot" role="status" aria-live="polite">
+    <div class="box">
+      <img src="/favicon.svg" alt="">
+      <h1>What's Beyond · Blog editor</h1>
+      <p class="wait">Loading the editor…</p>
+      <p class="err">The editor didn't load. Check your internet connection and <a href="">reload the page</a>. On your own computer, also check that <code>npx decap-server</code> is running.</p>
+    </div>
+  </div>
+  <!-- Decap CMS: free, open-source editor. Reads /admin/config.yml (written by build.mjs from src/config.json → "cms"). -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    if (!window.CMS) { document.getElementById('wb-boot').classList.add('failed'); throw new Error('Decap CMS did not load'); }
+    // Live preview that looks like the real post page (same styles as the website)
+    CMS.registerPreviewStyle('/admin/preview.css');
+    var PostPreview = createClass({
+      render: function () {
+        var entry = this.props.entry;
+        var get = function (k) { return entry.getIn(['data', k]); };
+        var cover = get('cover');
+        var coverSrc = cover ? this.props.getAsset(cover) : null;
+        var tags = get('tags');
+        tags = tags && tags.toJS ? tags.toJS() : (Array.isArray(tags) ? tags : []);
+        var date = get('date');
+        var dateText = date ? String(date).slice(0, 10) : '';
+        var today = new Date(Date.now() + 5.5 * 3600e3).toISOString().slice(0, 10);
+        var status = get('draft') ? 'Draft · not public' : (dateText && dateText > today ? 'Scheduled · goes live ' + dateText : '');
+        return h('article', { className: 'post' },
+          h('div', { className: 'page-hero post-hero' },
+            h('div', { className: 'container post-container hero-inner' },
+              status ? h('span', { className: 'ph-tag' }, status) : null,
+              get('featured') ? h('span', { className: 'ph-tag' }, 'Featured on the blog page') : null,
+              h('div', { className: 'post-kicker' }, get('category') ? h('span', { className: 'cat-pill' }, get('category')) : null),
+              h('h1', {}, get('title') || 'Post title'),
+              h('p', { className: 'lead' }, get('description') || 'Short description'),
+              h('p', { className: 'post-meta' }, (get('author') || '') + (dateText ? ' · ' + dateText : '')))),
+          h('div', { className: 'container post-wide' },
+            coverSrc ? h('figure', { className: 'post-cover' }, h('img', { src: coverSrc.toString(), alt: get('coverAlt') || '' })) : null),
+          h('div', { className: 'container post-container' },
+            h('div', { className: 'post-body' }, this.props.widgetFor('body')),
+            tags.length ? h('div', { className: 'post-foot' }, h('ul', { className: 'tag-list' }, tags.map(function (t, i) { return h('li', { key: i }, h('span', { className: 'tag' }, '#' + t)); }))) : null));
+      }
+    });
+    CMS.registerPreviewTemplate('blog', PostPreview);
+    // Hide the loading screen once the editor has drawn something
+    (function () {
+      var boot = document.getElementById('wb-boot');
+      var done = function () { boot.classList.add('done'); setTimeout(function () { boot.remove(); }, 450); };
+      var check = function () { var root = document.getElementById('nc-root'); if (root && root.children.length) { done(); return true; } return false; };
+      if (!check()) { var mo = new MutationObserver(function () { if (check()) mo.disconnect(); }); mo.observe(document.body, { childList: true, subtree: true }); }
+      setTimeout(function () { if (document.getElementById('wb-boot') && !boot.classList.contains('done')) boot.classList.add('failed'); }, 20000);
+    })();
+  </script>
+</body>
+</html>

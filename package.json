@@ -1,0 +1,14 @@
+{
+  "name": "whats-beyond-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "What's Beyond website — static, no dependencies",
+  "type": "module",
+  "scripts": {
+    "dev": "node dev.mjs",
+    "build": "node build.mjs"
+  },
+  "engines": {
+    "node": ">=18.11"
+  }
+}

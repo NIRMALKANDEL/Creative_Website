@@ -1,0 +1,1 @@
+{ "name": "What's Beyond", "short_name": "What's Beyond", "icons": [{ "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }], "theme_color": "#140B0F", "background_color": "#140B0F", "display": "browser" }

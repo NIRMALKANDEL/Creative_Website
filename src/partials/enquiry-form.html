@@ -1,0 +1,107 @@
+<form class="form enquiry" data-enquiry action="https://api.web3forms.com/submit" method="POST" novalidate>
+  <input type="hidden" name="access_key" value="{{web3formsKey}}">
+  <input type="hidden" name="subject" value="New enquiry from the What's Beyond website">
+  <input type="hidden" name="from_name" value="What's Beyond website">
+  <input type="hidden" name="visitor_timezone" value="" data-visitor-tz>
+  <input type="hidden" name="page" value="" data-page-url>
+  <div class="hp" aria-hidden="true"><label>Leave this empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div>
+
+  <div class="form-row">
+    <div class="field">
+      <label for="__P-name">Your name</label>
+      <input id="__P-name" name="name" type="text" autocomplete="name" required aria-describedby="__P-name-error">
+      <span class="error" id="__P-name-error" aria-live="polite"></span>
+    </div>
+    <div class="field">
+      <label for="__P-email">Email</label>
+      <input id="__P-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="__P-email-error">
+      <span class="error" id="__P-email-error" aria-live="polite"></span>
+    </div>
+  </div>
+
+  <fieldset class="field choice-field" data-required-group>
+    <legend>What do you need?</legend>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="service" value="Social media management" required><span>Social media management</span></label>
+      <label class="choice"><input type="radio" name="service" value="Content & branding"><span>Content &amp; branding</span></label>
+      <label class="choice"><input type="radio" name="service" value="Paid ads"><span>Paid ads</span></label>
+      <label class="choice"><input type="radio" name="service" value="1:1 profile audit"><span>1:1 profile audit</span></label>
+      <label class="choice"><input type="radio" name="service" value="Not sure yet"><span>Not sure yet</span></label>
+    </div>
+    <span class="error" id="__P-service-error" aria-live="polite"></span>
+  </fieldset>
+
+  <div class="field">
+    <label for="__P-msg">Anything we should know? <span class="opt">Optional</span></label>
+    <textarea id="__P-msg" name="message" rows="3" placeholder="Your brand or Instagram handle, goals, timeline…"></textarea>
+  </div>
+
+  <details class="more-fields">
+    <summary>{{icon:plus}} Add phone, budget or a good time to call <span class="opt">Optional</span></summary>
+    <div class="more-inner">
+      <div class="field">
+        <label for="__P-phone">Phone or WhatsApp</label>
+        <div class="phone-input">
+          <select id="__P-cc" name="phone_country" aria-label="Country calling code" autocomplete="tel-country-code">
+            <option value="+91" selected>🇮🇳 India +91</option>
+            <option value="+1">🇺🇸 USA / Canada +1</option>
+            <option value="+44">🇬🇧 UK +44</option>
+            <option value="+971">🇦🇪 UAE +971</option>
+            <option value="+61">🇦🇺 Australia +61</option>
+            <option value="+65">🇸🇬 Singapore +65</option>
+            <option value="+49">🇩🇪 Germany +49</option>
+            <option value="+33">🇫🇷 France +33</option>
+            <option value="+966">🇸🇦 Saudi Arabia +966</option>
+            <option value="+974">🇶🇦 Qatar +974</option>
+            <option value="+977">🇳🇵 Nepal +977</option>
+            <option value="+880">🇧🇩 Bangladesh +880</option>
+            <option value="+94">🇱🇰 Sri Lanka +94</option>
+            <option value="+64">🇳🇿 New Zealand +64</option>
+            <option value="other">Other (type it in the number)</option>
+          </select>
+          <input id="__P-phone" name="phone" type="tel" autocomplete="tel-national" inputmode="tel" placeholder="Number" aria-describedby="__P-phone-error">
+        </div>
+        <span class="error" id="__P-phone-error" aria-live="polite"></span>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="__P-budget">Monthly budget</label>
+          <div class="phone-input">
+            <select id="__P-cur" name="budget_currency" aria-label="Currency">
+              <option value="INR" selected>₹ INR</option>
+              <option value="USD">$ USD</option>
+              <option value="EUR">€ EUR</option>
+              <option value="GBP">£ GBP</option>
+              <option value="AED">AED</option>
+              <option value="AUD">A$ AUD</option>
+              <option value="SGD">S$ SGD</option>
+            </select>
+            <input id="__P-budget" name="budget" type="text" inputmode="numeric" placeholder="Rough amount">
+          </div>
+        </div>
+        <div class="field">
+          <label for="__P-when">Good time to call</label>
+          <input id="__P-when" name="best_time" type="text" placeholder="e.g. weekday mornings">
+          <span class="hint" data-tz-hint>In your time zone.</span>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <div class="field">
+    <label class="check" for="__P-consent"><input id="__P-consent" name="consent" type="checkbox" value="yes" required aria-describedby="__P-consent-error"> <span>You may use these details to reply to me (see the <a href="/privacy">privacy note</a>).</span></label>
+    <span class="error" id="__P-consent-error" aria-live="polite"></span>
+  </div>
+
+  <div class="form-status" role="status" tabindex="-1"></div>
+  <div class="form-actions">
+    <button class="btn btn-primary btn-lg" type="submit"><span class="label">Send enquiry</span> {{icon:arrow}}</button>
+    <p class="muted form-after">We reply within one working day (India time). Prefer email? <a href="mailto:{{email}}">{{email}}</a></p>
+  </div>
+</form>
+<div class="sent-panel" data-sent hidden tabindex="-1">
+  <span class="sent-icon" aria-hidden="true">{{icon:check}}</span>
+  <h3 data-sent-title>Your enquiry is in.</h3>
+  <p class="muted">We've received it and will reply by email within one working day (India time). If it's urgent, you can also book a call.</p>
+  <div class="row"><button class="btn btn-ghost btn-sm" type="button" data-sent-again>Send another</button></div>
+</div>

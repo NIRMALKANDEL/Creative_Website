@@ -1,0 +1,98 @@
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="story-progress" aria-hidden="true"><span></span></div>
+  <div class="container">
+    <a class="logo" href="/" aria-label="{{siteName}}, home">
+      {{logo}}
+      <span>{{siteName}}</span>
+    </a>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="/services"{{cur:services}}>Services</a></li>
+        <li><a href="/work"{{cur:work}}>Our Work</a></li>
+        <li><a href="/about"{{cur:about}}>About</a></li>
+        <li><a href="/blog/"{{cur:blog}}>Blog</a></li>
+      </ul>
+      <div class="nav-extra">
+        <button class="btn btn-ghost btn-sm" type="button" data-open-look>{{icon:sliders}} Customize look</button>
+        <button class="icon-btn theme-toggle theme-toggle--menu" type="button" aria-label="Switch colour mode" aria-pressed="true">{{themeIconA}}</button>
+      </div>
+      <div class="nav-foot">
+        <a href="{{instagramUrl}}" target="_blank" rel="noopener">{{icon:instagram}} @{{instagramHandle}}</a>
+        <a href="mailto:{{email}}">{{icon:mail}} {{email}}</a>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn theme-toggle theme-toggle--bar" type="button" aria-label="Switch colour mode" aria-pressed="true">{{themeIconB}}</button>
+      <button class="icon-btn look-btn" type="button" data-open-look aria-haspopup="dialog" aria-label="Customize colours and motion">{{icon:sliders}}</button>
+      <a class="btn btn-primary btn-sm header-cta" href="/book"><span class="btn-label-long">Book a discovery call</span><span class="btn-label-short">Book a call</span></a>
+      <button class="icon-btn menu-btn" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Menu">
+        <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<dialog class="look-panel" id="look-panel" aria-labelledby="look-title">
+  <form method="dialog" class="look-inner">
+    <div class="look-head">
+      <h2 id="look-title">Customize the look</h2>
+      <button class="icon-btn" value="close" aria-label="Close">{{icon:close}}</button>
+    </div>
+    <p class="muted look-note">Saved on this device only.</p>
+
+    <fieldset class="look-group">
+      <legend>Appearance</legend>
+      <div class="seg" role="presentation">
+        <label><input type="radio" name="mode" value="system"><span>{{icon:monitor}} System</span></label>
+        <label><input type="radio" name="mode" value="light"><span>{{icon:sun}} Light</span></label>
+        <label><input type="radio" name="mode" value="dark"><span>{{icon:moon}} Dark</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="look-group">
+      <legend>Theme</legend>
+      <div class="theme-cards">
+        <label class="theme-card"><input type="radio" name="palette" value="cherry"><span class="tc-preview" data-palette="cherry" data-preview><i class="tc-bar"></i><i class="tc-line"></i><i class="tc-line short"></i><i class="tc-btn"></i><i class="tc-glow"></i></span><span class="tc-name">Cherry<small>The house colours</small></span></label>
+        <label class="theme-card"><input type="radio" name="palette" value="grape"><span class="tc-preview" data-palette="grape" data-preview><i class="tc-bar"></i><i class="tc-line"></i><i class="tc-line short"></i><i class="tc-btn"></i><i class="tc-glow"></i></span><span class="tc-name">Grape<small>Purple and magenta</small></span></label>
+        <label class="theme-card"><input type="radio" name="palette" value="sunset"><span class="tc-preview" data-palette="sunset" data-preview><i class="tc-bar"></i><i class="tc-line"></i><i class="tc-line short"></i><i class="tc-btn"></i><i class="tc-glow"></i></span><span class="tc-name">Sunset<small>Coral and gold</small></span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="look-group">
+      <legend>Accent colour</legend>
+      <div class="swatches">
+        <label class="swatch" title="Match the theme"><input type="radio" name="accent" value="auto"><span class="sw sw-auto"></span><span class="sr-only">Match the theme</span></label>
+        <label class="swatch" title="Pink"><input type="radio" name="accent" value="pink"><span class="sw" style="--sw:#E1306C"></span><span class="sr-only">Pink</span></label>
+        <label class="swatch" title="Violet"><input type="radio" name="accent" value="violet"><span class="sw" style="--sw:#833AB4"></span><span class="sr-only">Violet</span></label>
+        <label class="swatch" title="Coral"><input type="radio" name="accent" value="coral"><span class="sw" style="--sw:#F77737"></span><span class="sr-only">Coral</span></label>
+        <label class="swatch" title="Teal"><input type="radio" name="accent" value="teal"><span class="sw" style="--sw:#14B8A6"></span><span class="sr-only">Teal</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="look-group">
+      <legend>Corners</legend>
+      <div class="seg">
+        <label><input type="radio" name="radius" value="rounded"><span><i class="corner c-round" aria-hidden="true"></i> Rounded</span></label>
+        <label><input type="radio" name="radius" value="soft"><span><i class="corner c-soft" aria-hidden="true"></i> Soft</span></label>
+        <label><input type="radio" name="radius" value="sharp"><span><i class="corner c-sharp" aria-hidden="true"></i> Sharp</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="look-group">
+      <legend>Motion</legend>
+      <div class="seg">
+        <label><input type="radio" name="motion" value="full"><span>Full</span></label>
+        <label><input type="radio" name="motion" value="calm"><span>Calm</span></label>
+        <label><input type="radio" name="motion" value="off"><span>Off</span></label>
+      </div>
+      <p class="muted look-hint">Calm stops background movement. Off also removes page transitions. If your device is set to reduce motion, that always wins.</p>
+    </fieldset>
+
+    <div class="look-foot">
+      <button class="btn btn-ghost btn-sm" type="button" data-look-reset>{{icon:reset}} Reset to default</button>
+      <button class="btn btn-primary btn-sm" value="close">Done</button>
+    </div>
+  </form>
+</dialog>
+<main id="main">
