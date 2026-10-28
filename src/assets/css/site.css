@@ -1484,7 +1484,7 @@ a.glance-item:hover, .glance-item:has(> a:hover) { border-color: var(--line-stro
   .hero-ctas .btn { flex: 1 1 0; min-width: 0; padding-inline: 12px; font-size: .95rem; white-space: nowrap; }
   .hero-ctas .btn-label-long { display: none; }
   .hero-ctas .btn-label-short { display: inline; }
-  .hero-stage { height: 392px; }
+  .hero-stage { height: 392px; order: -1; } /* phones: animation first, then the headline and buttons */
   .phone--front { width: 192px; border-radius: 30px; padding: 7px; }
   .phone--back { width: 156px; border-radius: 30px; padding: 7px; }
   .phone-screen { border-radius: 24px; }
