@@ -1,10 +1,10 @@
-// Cloudflare Pages Function: /api/auth
+// /api/auth (Cloudflare Pages Function; Vercel uses it through api/auth.js)
 // Step 1 of the blog editor login. Sends the editor to GitHub to sign in.
-// Needs two environment variables in Cloudflare Pages → Settings → Variables:
+// Needs two environment variables in your host's settings (Cloudflare Pages → Variables, or Vercel → Environment Variables):
 //   GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET  (from a GitHub OAuth App)
 export async function onRequestGet({ request, env }) {
   if (!env.GITHUB_CLIENT_ID) {
-    return new Response('Blog editor login is not set up yet: add GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET in Cloudflare Pages settings.', { status: 500 });
+    return new Response('Blog editor login is not set up yet: add GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET in your hosting settings (Vercel or Cloudflare), then redeploy.', { status: 500 });
   }
   const url = new URL(request.url);
   const state = crypto.randomUUID();

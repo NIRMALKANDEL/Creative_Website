@@ -12,6 +12,10 @@ const SRC = join(ROOT, 'src');
 const DIST = join(ROOT, 'dist');
 const read = (p) => readFileSync(join(SRC, p), 'utf8');
 const cfg = JSON.parse(read('config.json'));
+// Hosting: SITE_URL always wins. On Vercel, while config.json still has the REPLACE placeholder,
+// the project's production address (e.g. https://creative-website.vercel.app) is used for canonical/share links.
+if (process.env.SITE_URL) cfg.siteUrl = process.env.SITE_URL.replace(/\/$/, '');
+else if (/REPLACE/.test(cfg.siteUrl) && process.env.VERCEL_PROJECT_PRODUCTION_URL) cfg.siteUrl = `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
 const hash = (s) => createHash('sha256').update(s).digest('hex').slice(0, 10);
 
 /* ---------- icons (Lucide-style, stroke) ---------- */
@@ -508,6 +512,37 @@ writeFileSync(join(DIST, '_headers'), `/*
   X-Robots-Tag: noindex
   Cache-Control: no-store
 `);
+
+/* ---------- vercel.json: same headers for Vercel (kept in the repo root; Vercel reads it at deploy) ---------- */
+const securityHeaders = [
+  { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains' },
+  { key: 'X-Content-Type-Options', value: 'nosniff' },
+  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+  { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+  { key: 'X-Frame-Options', value: 'DENY' },
+];
+const vercel = {
+  $schema: 'https://openapi.vercel.sh/vercel.json',
+  buildCommand: 'node build.mjs',
+  outputDirectory: 'dist',
+  framework: null,
+  cleanUrls: true,
+  headers: [
+    { source: '/((?!admin).*)', headers: [...securityHeaders, { key: 'Content-Security-Policy-Report-Only', value: csp }] },
+    { source: '/admin/:path*', headers: [...securityHeaders, { key: 'X-Robots-Tag', value: 'noindex' }, { key: 'Cache-Control', value: 'no-store' }] },
+    { source: '/assets/js/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
+    { source: '/assets/fonts/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
+    { source: '/assets/reels/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000' }] },
+    { source: '/assets/blog/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000' }, { key: 'Content-Security-Policy', value: "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; sandbox" }] },
+    { source: '/blog/feed.xml', headers: [{ key: 'Content-Type', value: 'application/rss+xml; charset=utf-8' }] },
+  ],
+};
+const vercelJson = JSON.stringify(vercel, null, 2) + '\n';
+const vercelPath = join(ROOT, 'vercel.json');
+if (!existsSync(vercelPath) || readFileSync(vercelPath, 'utf8') !== vercelJson) {
+  writeFileSync(vercelPath, vercelJson);
+  if (!process.env.VERCEL) console.log('  vercel.json updated: commit it so Vercel uses the new headers.');
+}
 
 /* report */
 const kb = (p) => (statSync(join(DIST, p)).size / 1024).toFixed(1);

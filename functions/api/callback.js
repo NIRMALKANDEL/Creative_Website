@@ -1,4 +1,4 @@
-// Cloudflare Pages Function: /api/callback
+// /api/callback (Cloudflare Pages Function; Vercel uses it through api/callback.js)
 // Step 2 of the blog editor login. GitHub sends the editor back here; we swap the
 // one-time code for a token and hand it to the editor window (Decap CMS protocol).
 export async function onRequestGet({ request, env }) {
