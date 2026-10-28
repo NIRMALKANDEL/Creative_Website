@@ -7,7 +7,7 @@ if errorlevel 1 (
   pause
   exit /b 1
 )
-echo Starting the What's Beyond preview at http://localhost:5173  (close this window to stop it)
+echo Starting the Brightloop preview at http://localhost:5173  (close this window to stop it)
 start "" http://localhost:5173
 node dev.mjs
 pause

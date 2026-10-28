@@ -3,7 +3,7 @@
   "title": "5 reel hooks that stop the scroll (sample post)",
   "date": "2026-10-16",
   "description": "This is a sample post to show how the blog looks. Replace or delete it from the admin page before launch.",
-  "author": "What's Beyond",
+  "author": "Brightloop",
   "category": "Reels & video",
   "tags": ["reels", "hooks", "captions"],
   "featured": false,

@@ -51,7 +51,7 @@ http.createServer((req, res) => {
   res.writeHead(status, { 'Content-Type': type, 'Cache-Control': 'no-store' });
   res.end(body);
 }).listen(PORT, () => {
-  console.log(`\n  What's Beyond preview → http://localhost:${PORT}\n  Edit anything in src/ or build.mjs and the page refreshes. Ctrl+C to stop.\n`);
+  console.log(`\n  Brightloop preview → http://localhost:${PORT}\n  Edit anything in src/ or build.mjs and the page refreshes. Ctrl+C to stop.\n`);
 });
 
 build();

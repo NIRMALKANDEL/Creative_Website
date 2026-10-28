@@ -1,4 +1,4 @@
-# How to write a blog post — What's Beyond
+# How to write a blog post — Brightloop
 
 You can add, edit and remove blog posts yourself, from any computer, at:
 

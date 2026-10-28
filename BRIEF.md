@@ -1,4 +1,4 @@
-# What's Beyond — final build brief (plan + Vishal's instructions, merged)
+# Brightloop — final build brief (plan + Vishal's instructions, merged)
 
 Date: 16 Oct 2026. This file replaces the plan for building purposes. Anything marked **FIX** is a correction or gap found in the original plan.
 

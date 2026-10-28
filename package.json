@@ -1,8 +1,8 @@
 {
-  "name": "whats-beyond-site",
+  "name": "brightloop-site",
   "private": true,
   "version": "1.0.0",
-  "description": "What's Beyond website — static, no dependencies",
+  "description": "Brightloop website — static, no dependencies",
   "type": "module",
   "scripts": {
     "dev": "node dev.mjs",

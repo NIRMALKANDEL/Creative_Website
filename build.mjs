@@ -1,4 +1,4 @@
-// What's Beyond — zero-dependency build. Run: node build.mjs
+// Brightloop — zero-dependency build. Run: node build.mjs
 // Stitches src/pages/* with the shared head/header/footer, inlines CSS,
 // fingerprints the JS, writes dist/. Cloudflare Pages: build `node build.mjs`, output `dist`.
 import { readFileSync, writeFileSync, mkdirSync, rmSync, readdirSync, copyFileSync, existsSync, statSync } from 'node:fs';
@@ -56,8 +56,8 @@ const ICONS = {
   external: svg('<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>'),
 };
 const THEME_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><mask id="MASKID"><rect x="-4" y="-4" width="32" height="32" fill="#fff"/><circle class="moon-mask-circle" cx="24" cy="2" r="7" fill="#000"/></mask><circle class="core" cx="12" cy="12" r="5" fill="currentColor" mask="url(#MASKID)"/><g class="sun-rays" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1.5v2M12 20.5v2M1.5 12h2M20.5 12h2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M4.6 19.4 6 18M18 6l1.4-1.4"/></g></svg>`;
-/* Placeholder logo mark — an orbit that breaks its own circle ("beyond"). Swap for the client's logo. */
-const LOGO = `<svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E1306C"/><stop offset="1" stop-color="#FFE08A"/></linearGradient></defs><circle cx="20" cy="20" r="13" fill="none" stroke="url(#lg)" stroke-width="4" stroke-dasharray="62 20" stroke-linecap="round" transform="rotate(-40 20 20)"/><circle cx="33" cy="9" r="4" fill="#FFE08A"/></svg>`;
+/* Demo logo mark — a gradient loop with a play button (reels on repeat). Swap for the client's logo. */
+const LOGO = `<svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E1306C"/><stop offset="1" stop-color="#FFE08A"/></linearGradient></defs><circle cx="20" cy="20" r="14" fill="none" stroke="url(#lg)" stroke-width="4.5"/><path d="M16.5 13.8v12.4a1 1 0 0 0 1.5.86l9.6-6.2a1 1 0 0 0 0-1.72L18 12.94a1 1 0 0 0-1.5.86Z" fill="url(#lg)"/></svg>`;
 
 /* ---------- look settings (config.json → "look") ---------- */
 const PRESETS = {
@@ -95,7 +95,7 @@ const jsFile = `main.${hash(js)}.js`;
 const reelCard = (r, i, eager = false) => {
   const label = r.label || `Reel ${String(i + 1).padStart(2, '0')}`;
   if (r.src) {
-    return `<figure class="reel" style="margin:0" data-double-tap><div class="reel-notch"></div><video data-reel muted playsinline loop preload="metadata"${r.poster ? ` poster="${r.poster}"` : ''} width="360" height="640" aria-label="${label}"><source src="${r.src}" type="video/mp4"></video></figure>`;
+    return `<figure class="reel" style="margin:0" data-double-tap><div class="reel-notch"></div><video data-reel muted playsinline loop preload="${r.poster ? 'none' : 'metadata'}"${r.poster ? ` poster="${r.poster}"` : ''} width="360" height="640" aria-label="${label}"><source src="${r.src}" type="video/mp4"></video></figure>`;
   }
   return `<figure class="reel" style="margin:0" data-placeholder="reel" data-double-tap><div class="reel-notch"></div><div class="reel-ph"><span class="play">${ICONS.play}</span></div><figcaption class="reel-meta"><span>${label}</span><span class="ph-tag">Placeholder</span></figcaption></figure>`;
 };
@@ -150,7 +150,7 @@ const writePage = (name, meta, body, extra = {}, late = {}) => {
   if (left?.length) leftover.push(`${name}: ${[...new Set(left)].join(', ')}`);
   for (const [k, v] of Object.entries(late)) html = html.replace(k, () => v);
   let lgN = 0; // the logo appears several times per page: give each copy its own gradient id
-  html = html.replace(/id="lg"([\s\S]*?)url\(#lg\)/g, (_, mid) => { lgN += 1; return `id="lg${lgN}"${mid}url(#lg${lgN})`; });
+  html = html.replace(/<svg class="logo-mark"[\s\S]*?<\/svg>/g, (m) => { lgN += 1; return m.replace(/id="lg"/, `id="lg${lgN}"`).replace(/url\(#lg\)/g, `url(#lg${lgN})`); });
   placeholderCount += (html.match(/data-placeholder/g) || []).length;
   const out = outFile(meta.path);
   mkdirSync(dirname(join(DIST, out)), { recursive: true });

@@ -1,6 +1,6 @@
 ---
 "draft": false,
-  "author": "What's Beyond",
+  "author": "Brightloop",
   "featured": false,
   "date": "2026-10-17",
   "cover": "/assets/blog/02-feed.png",

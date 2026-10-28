@@ -1,4 +1,4 @@
-/* What's Beyond — one small script. No libraries. */
+/* Brightloop — one small script. No libraries. */
 (() => {
   const doc = document.documentElement;
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -208,6 +208,68 @@
       });
     }, { threshold: 0.55 });
     videos.forEach((v) => vio.observe(v));
+  }
+
+  /* Reels auto-advance — phones only. One reel every 12 s, smooth and snapped to the left edge.
+     Stops while someone touches, swipes, scrolls, presses or focuses the row, and picks up again
+     after a short idle. Loops without rewinding: the reel that leaves on the left is moved to the end.
+     Off for reduced motion (device setting or the "Motion: Off" choice) and on tablets/desktop. */
+  const phoneMq = matchMedia('(max-width: 640px)');
+  const reduceMq = matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll('.reels-row, .reels-wall').forEach((row) => {
+    const EVERY = 12000, IDLE = 7000;
+    let timer = 0, visible = false, holding = false, focused = false, autoUntil = 0;
+    const allowed = () => phoneMq.matches && !reduceMq.matches && prefs.motion !== 'off';
+    const canRun = () => allowed() && visible && !holding && !focused && !document.hidden && row.scrollWidth > row.clientWidth + 4;
+    const stop = () => { clearTimeout(timer); timer = 0; };
+    const schedule = (ms = EVERY) => { stop(); if (allowed() && visible) timer = setTimeout(tick, ms); };
+    const startEdge = () => row.getBoundingClientRect().left + (parseFloat(getComputedStyle(row).scrollPaddingInlineStart) || 0);
+    const advance = () => {
+      autoUntil = performance.now() + 1500;
+      const edge = startEdge();
+      const nextOf = () => [...row.children].find((el) => el.getBoundingClientRect().left > edge + 4);
+      let next = nextOf();
+      if (!next || row.scrollLeft + next.getBoundingClientRect().left - edge > row.scrollWidth - row.clientWidth - 2) {
+        // Near the end: move the first reel to the back and shift by the same amount, so nothing visibly jumps
+        const first = row.firstElementChild;
+        const step = (row.children[1]?.getBoundingClientRect().left ?? 0) - first.getBoundingClientRect().left;
+        row.style.scrollSnapType = 'none';
+        row.appendChild(first);
+        row.scrollLeft -= step;
+        row.style.scrollSnapType = '';
+        next = nextOf();
+      }
+      if (!next) return;
+      row.scrollTo({ left: row.scrollLeft + next.getBoundingClientRect().left - edge, behavior: 'smooth' });
+    };
+    function tick() { if (canRun()) advance(); schedule(EVERY); }
+    const userActed = () => { if (performance.now() > autoUntil) schedule(IDLE + EVERY / 4); };
+    const press = () => { holding = true; stop(); };
+    const release = () => { holding = false; schedule(IDLE); };
+    row.addEventListener('pointerdown', press, { passive: true });
+    row.addEventListener('touchstart', press, { passive: true });
+    ['pointerup', 'pointercancel', 'touchend', 'touchcancel'].forEach((t) => row.addEventListener(t, release, { passive: true }));
+    row.addEventListener('scroll', userActed, { passive: true });
+    row.addEventListener('wheel', userActed, { passive: true });
+    const keyboardFocus = () => { try { return row.matches(':focus-visible') || !!row.querySelector(':focus-visible'); } catch (e) { return false; } };
+    row.addEventListener('focusin', () => { if (keyboardFocus()) { focused = true; stop(); } }); // a tap also focuses the row; only keyboard focus pauses
+    row.addEventListener('focusout', () => { focused = false; schedule(IDLE); });
+    row.addEventListener('contextmenu', (e) => { if (holding) e.preventDefault(); }); // long-press on a reel shouldn't open a menu
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([en]) => { visible = en.isIntersecting; visible ? schedule() : stop(); }, { threshold: 0.35 }).observe(row);
+    }
+    const recheck = () => (allowed() ? schedule() : stop());
+    phoneMq.addEventListener?.('change', recheck);
+    reduceMq.addEventListener?.('change', recheck);
+    window.addEventListener('themechange', recheck); // fires when the Motion choice changes too
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : schedule()));
+  });
+
+  /* Pause looping decoration (aurora, marquee, story phone) while it's off screen */
+  if ('IntersectionObserver' in window) {
+    const loops = document.querySelectorAll('.aurora, .marquee, .hero-stage, .rotator, .cta-band');
+    const lio = new IntersectionObserver((ents) => ents.forEach((en) => en.target.classList.toggle('is-offscreen', !en.isIntersecting)), { rootMargin: '120px 0px' });
+    loops.forEach((el) => lio.observe(el));
   }
 
   /* ---------- Notifications (accessible toasts) ---------- */

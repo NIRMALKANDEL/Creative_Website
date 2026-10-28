@@ -1,5 +1,5 @@
 /* ==========================================================================
-   What's Beyond — site styles
+   Brightloop — site styles
    1. Fonts  2. Tokens (light + dark)  3. Base  4. Layout  5. Components
    6. Sections  7. Pages  8. Motion  9. Utilities
    Brand kit drop-in: change only section 2.
@@ -1457,3 +1457,153 @@ a.glance-item:hover, .glance-item:has(> a:hover) { border-color: var(--line-stro
 .post-body, .post-foot, .post-cta { max-width: 700px; }
 .post-body { padding-top: clamp(4px, 1vw, 12px); }
 .post-body > :first-child { margin-top: 0; }
+
+/* ==========================================================================
+   14. Mobile pass (Oct 2026): compact, swipeable, less scrolling.
+   Everything here sits behind max-width queries, so tablet and desktop
+   layouts are untouched. Same fonts, colours, cards and motion.
+   ========================================================================== */
+
+/* Hero button labels: long on wide screens, short on phones */
+.hero-ctas .btn-label-short { display: none; }
+
+/* Paused when off screen (set from JS) — saves battery on long pages */
+.is-offscreen, .is-offscreen * { animation-play-state: paused !important; }
+
+@media (max-width: 640px) {
+  :root { --section-y: 44px; }
+  .section-head { margin-bottom: 20px; gap: 10px; }
+  .section-head .lead { font-size: 1rem; }
+
+  /* --- Home hero: buttons side by side, smaller illustration --- */
+  .hero--studio { padding-top: 22px; padding-bottom: 28px; }
+  .hero--studio .hero-inner { gap: 16px; }
+  .hero-grid { gap: 22px; }
+  .hero-ctas, .jump-links { width: 100%; }
+  .hero-ctas { display: flex; flex-wrap: nowrap; gap: 10px; }
+  .hero-ctas .btn { flex: 1 1 0; min-width: 0; padding-inline: 12px; font-size: .95rem; white-space: nowrap; }
+  .hero-ctas .btn-label-long { display: none; }
+  .hero-ctas .btn-label-short { display: inline; }
+  .hero-stage { height: 392px; }
+  .phone--front { width: 192px; border-radius: 30px; padding: 7px; }
+  .phone--back { width: 156px; border-radius: 30px; padding: 7px; }
+  .phone-screen { border-radius: 24px; }
+  .phone::before { top: 13px; height: 14px; }
+  .story-bars { top: 32px; }
+  .story-head { top: 42px; font-size: .66rem; }
+  .story-avatar { width: 22px; height: 22px; }
+  .slide { padding: 78px 14px 58px; gap: 12px; }
+  .slide .sticker { font-size: .86rem; }
+  .story-foot { bottom: 10px; }
+  .story-foot .reply { padding: 7px 12px; font-size: .66rem; }
+  .cal-screen { padding: 36px 10px 10px; gap: 8px; }
+  .toast { max-width: 176px; font-size: .72rem; padding: 7px 9px 7px 7px; gap: 8px; border-radius: 13px; }
+  .toast-ic { width: 26px; height: 26px; border-radius: 8px; }
+  .toast-ic svg { width: 15px; height: 15px; }
+
+  /* --- Inner page tops --- */
+  .page-hero { padding-top: 22px; padding-bottom: 18px; }
+  .page-hero .hero-inner { gap: 12px; }
+  .jump-links { flex-wrap: nowrap; }
+  .jump-links .btn { flex: 1 1 0; min-width: 0; padding-inline: 10px; white-space: nowrap; }
+
+  /* "At a glance" rows: two compact columns, title only */
+  .glance, .glance--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .glance-item { padding: 10px; gap: 10px; min-height: 56px; }
+  .glance-item .icon-tile { width: 32px; height: 32px; }
+  .glance-item .icon-tile svg { width: 16px; height: 16px; }
+  .glance-item b { font-size: .88rem; line-height: 1.25; }
+  .glance-item small { display: none; }
+  .glance > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+  /* --- Swipe rails: stacked cards become one horizontal row with a peek of the next --- */
+  .steps, .bento, .quotes, .values, .team, .after-steps, .reels-wall {
+    display: grid; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 80%;
+    gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter); margin-inline: calc(var(--gutter) * -1);
+    padding: 4px var(--gutter) 14px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    touch-action: manipulation;
+  }
+  .steps::-webkit-scrollbar, .bento::-webkit-scrollbar, .quotes::-webkit-scrollbar, .values::-webkit-scrollbar,
+  .team::-webkit-scrollbar, .after-steps::-webkit-scrollbar, .reels-wall::-webkit-scrollbar { display: none; }
+  .steps > *, .bento > *, .quotes > *, .values > *, .team > *, .after-steps > *, .reels-wall > * { scroll-snap-align: start; min-width: 0; }
+  .quote { margin: 0; }
+  .team { grid-auto-columns: 58%; }
+  .reels-wall { grid-auto-columns: 46%; gap: 12px; }
+  .reels-wall-wrap { padding-bottom: 8px; }
+  .step-num { font-size: 2rem; }
+  .card { padding: 18px; }
+  .post-card, .project, .cal-shell { padding: 0; }
+  .service-card { gap: 10px; }
+  .service-card .icon-tile, .value .icon-tile { width: 44px; height: 44px; }
+  .value { gap: 10px; }
+
+  /* --- Home reels row: snap to the left edge so auto-advance lines up --- */
+  .reels-row { grid-auto-columns: 46%; gap: 12px; padding-bottom: 14px; scroll-padding-inline: var(--gutter); touch-action: manipulation; }
+  .reels-row .reel { scroll-snap-align: start; }
+  .reels-head { margin-bottom: 8px; }
+  .marquee-band { padding-block: 12px; }
+
+  /* --- Proof numbers: tighter 2 × 2 --- */
+  .stat { padding: 16px; gap: 4px; }
+  .quotes.mt-m { margin-top: 14px; }
+
+  /* --- FAQ --- */
+  .faq { gap: 8px; }
+  .faq summary { min-height: 54px; padding: 14px 16px; font-size: .98rem; }
+
+  /* --- Services detail + timeline --- */
+  .service-block { padding-block: 24px; }
+  .service-block .body { gap: 12px; }
+  .tl-item { gap: 14px; padding-block: 8px; }
+
+  /* --- Work: case studies --- */
+  .project-media { min-height: 150px; }
+  .case-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .case-grid > :last-child { grid-column: 1 / -1; }
+
+  /* --- About --- */
+  .portrait { max-height: 260px; }
+  .member .portrait { max-height: none; }
+  .member { gap: 8px; }
+  .story { gap: 12px; }
+  .story p { font-size: 1rem; }
+
+  /* --- Book --- */
+  .book-aside { gap: 18px; }
+  .checklist { gap: 10px; }
+
+  /* --- Blog lists: compact horizontal cards (thumbnail left, text right) --- */
+  .post-grid .post-card { grid-template-columns: 112px minmax(0, 1fr); grid-template-rows: none; }
+  .post-grid .post-card-media { aspect-ratio: auto; height: 100%; min-height: 118px; border-bottom: 0; border-right: 1px solid var(--line); }
+  .post-grid .post-card-body { padding: 12px 14px; gap: 5px; align-content: center; }
+  .post-grid .post-card-title { font-size: 1rem; line-height: 1.25; }
+  .post-grid .post-card-desc { -webkit-line-clamp: 2; font-size: .85rem; line-height: 1.45; }
+  .post-grid .post-card .more { display: none; }
+  .post-grid .post-meta { font-size: .76rem; gap: 2px 8px; }
+  .post-grid .cat-pill { font-size: .68rem; padding: 2px 7px; }
+  .post-grid .post-card-fallback span { font-size: 2.2rem; }
+  .post-grid { gap: 10px; }
+  .post-card--hero .post-card-media { aspect-ratio: 2 / 1; }
+
+  /* --- CTA band --- */
+  .cta-band { padding: 28px 18px; gap: 14px; }
+
+  /* --- Footer: only what people need on a phone --- */
+  .site-footer { padding-block: 28px 18px; margin-top: 44px; }
+  .footer-top { gap: 14px; }
+  .footer-intro { font-size: .9rem; }
+  .footer-ctas, .footer-top .f-extra { display: none; }
+  .footer-top h3 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .footer-explore ul, .footer-hello ul { display: flex; flex-wrap: wrap; gap: 0 20px; }
+  .footer-hello ul { gap: 0 18px; }
+  .footer-top ul a { gap: 8px; font-size: .95rem; }
+  .footer-place { margin-top: 4px; font-size: .88rem; }
+  .footer-word { margin-top: 18px; }
+  .footer-bottom { margin-top: 14px; padding-top: 14px; font-size: .8rem; }
+}
+
+/* Very small phones: keep both hero buttons on one row */
+@media (max-width: 359px) {
+  .hero-ctas .btn, .jump-links .btn { font-size: .88rem; padding-inline: 8px; }
+}

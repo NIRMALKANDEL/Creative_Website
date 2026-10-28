@@ -1,6 +1,6 @@
 {
   "_note": "Replace every value marked REPLACE before go-live. Run `node build.mjs` after any change.",
-  "siteName": "What's Beyond",
+  "siteName": "Brightloop",
   "siteUrl": "https://REPLACE-with-client-domain.com",
   "email": "hello@REPLACE-domain.com",
   "instagramHandle": "REPLACE_handle",
@@ -21,7 +21,7 @@
   "web3formsKey": "REPLACE-web3forms-access-key",
   "cms": {
     "_help": "Blog editor at /admin. repo = the GitHub repository this site deploys from (owner/name).",
-    "repo": "NIRMALKANDEL/Whats-beyond-sample-site-",
+    "repo": "NIRMALKANDEL/Creative_Website",
     "branch": "main"
   },
   "blog": {

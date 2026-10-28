@@ -1,6 +1,6 @@
 ---
 "draft": false,
-  "author": "What's Beyond",
+  "author": "Brightloop",
   "featured": true,
   "date": "2026-10-16",
   "cover": "/assets/blog/sample-cover.webp",

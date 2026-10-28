@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-  <title>What's Beyond blog</title>
+  <title>Brightloop blog</title>
   <link>https://REPLACE-with-client-domain.com/blog/</link>
   <atom:link href="https://REPLACE-with-client-domain.com/blog/feed.xml" rel="self" type="application/rss+xml"/>
-  <description>Practical social media, content and Instagram growth tips from What's Beyond.</description>
+  <description>Practical social media, content and Instagram growth tips from Brightloop.</description>
   <language>en-IN</language>
   <item>
     <title>How to grow brand through reels.</title>

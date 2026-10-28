@@ -1,7 +1,43 @@
-# What's Beyond — website
+# Brightloop — social media agency website
 
-Static site: plain HTML, CSS and one small JS file. No framework, no database.
-Read `BRIEF.md` for the full plan, the corrections made to it, and what's still needed from the client.
+A fast, fully responsive marketing site for a fictional social media agency, **Brightloop**. It's a demo project built to show clients what a modern agency site can look like: animated hero, reels showcase, services, case studies, a blog with a no-code editor, and booking/enquiry flows.
+
+Plain HTML, CSS and one small JavaScript file. No framework, no database, **zero npm dependencies**.
+
+| Desktop | Mobile |
+|---|---|
+| ![Brightloop home page on desktop](docs/screenshot-desktop.jpg) | ![Brightloop home page on a phone](docs/screenshot-mobile.jpg) |
+
+> Brightloop is a sample brand. Names, numbers, testimonials and contact details are placeholders (search for `data-placeholder` and `REPLACE`).
+
+## Highlights
+- **Pages:** Home, Services, Our Work, About, Book a call, Blog (list, categories, posts, RSS), Privacy and 404.
+- **Animated hero:** a phone playing an Instagram-style story, with workflow notifications around it.
+- **Reels showcase:** a swipeable row of 9:16 reels with double-tap-to-like. On phones the row **auto-advances every 12 s**. It pauses while touched, swiped or focused, loops without rewinding, and switches off for reduced motion.
+- **Built for phones:** stacked cards become swipe rows, blog lists use compact thumbnail rows, and spacing and the footer are trimmed. Tablet and desktop keep the full layout.
+- **Visitor customizer:** light/dark/system, three colour themes, accent colour, corner style and motion level, applied before paint (no flash).
+- **Let's talk pop-up:** Cal.com booking and a short enquiry form (Web3Forms) from any page, time-zone aware.
+- **Blog with a no-code editor** at `/admin` (Decap CMS + GitHub). Supports drafts, scheduled posts, categories, search and related posts.
+- **Performance and accessibility:** inlined critical CSS, self-hosted fonts, a fingerprinted script, animations paused off screen, reduced-motion support, 4.5:1 contrast and 44 px touch targets.
+- **SEO:** canonical URLs, Open Graph/Twitter cards, JSON-LD (organisation, breadcrumbs, articles), sitemap, robots and RSS.
+
+## Quick start
+```bash
+node -v          # needs Node.js 18 or newer
+npm run dev      # builds and serves at http://localhost:5173, auto-refreshes on save
+npm run build    # writes the finished site to dist/
+```
+On Windows you can also double-click `start-site.bat`.
+
+## Tech
+| | |
+|---|---|
+| Markup | Hand-written HTML pages + shared partials, stitched by `build.mjs` |
+| Styles | One stylesheet (`src/assets/css/site.css`) with CSS variables for every theme |
+| Script | `src/assets/js/main.js`, vanilla JS, no libraries |
+| Fonts | Syne + Manrope, self-hosted WOFF2 (OFL) |
+| Blog | Markdown with JSON front matter → static pages (`lib/markdown.mjs`) |
+| Hosting | Any static host; set up for Cloudflare Pages (headers, CSP, Pages Functions for the CMS login) |
 
 ## Folder layout
 ```
@@ -50,7 +86,7 @@ Don't use the "Live Server" extension or double-click the HTML files: the links 
 The client writes posts at **yourdomain.com/admin** using Decap CMS (free, open source). Pressing Publish saves the post to GitHub; Cloudflare rebuilds the site and the post is live in about a minute. No database.
 
 One-time setup (about 15 minutes, after the site is on GitHub + Cloudflare Pages):
-1. In `src/config.json`, set `cms.repo` to the GitHub repository, e.g. `"vishal/whats-beyond-site"`.
+1. In `src/config.json`, set `cms.repo` to the GitHub repository, e.g. `"NIRMALKANDEL/Creative_Website"`.
 2. GitHub → **Settings → Developer settings → OAuth Apps → New OAuth App**
    - Homepage URL: `https://clientdomain.com`
    - Authorization callback URL: `https://clientdomain.com/api/callback`
@@ -130,7 +166,7 @@ Visitors who switch on "reduce motion" on their phone always get no motion, what
 9. **Cal.com** — event "Discovery call", 30 min, availability in Asia/Kolkata; the embed shows times in the visitor's zone automatically.
 
 ## Deploy (Cloudflare Pages)
-1. Push this folder to a private GitHub repo.
+1. Push this folder to a GitHub repo (this one: `NIRMALKANDEL/Creative_Website`).
 2. Cloudflare → Workers & Pages → Create → Pages → connect the repo.
 3. Build command: `node build.mjs` · Output directory: `dist`.
 4. Custom domains → add the client's domain, follow the DNS steps.
@@ -156,3 +192,6 @@ npx serve dist -l 5173        # in a second terminal
 node tests/e2e.mjs
 npm run build                 # afterwards, rebuild the real site
 ```
+
+## Licence
+Code: free to reuse for your own projects. Fonts: SIL Open Font License (see `src/assets/fonts/`). Brightloop is a fictional brand.
