@@ -480,14 +480,13 @@ const csp = [
   "connect-src 'self' https://api.web3forms.com https://app.cal.com https://cal.com https://cloudflareinsights.com",
   "form-action 'self' https://api.web3forms.com",
   "base-uri 'self'",
-  "frame-ancestors 'none'",
+  "frame-ancestors 'self' https://nirmalbuilds.com https://www.nirmalbuilds.com https://webpitch.vercel.app http://localhost:3000",
 ].join('; ');
 writeFileSync(join(DIST, '_headers'), `/*
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  X-Frame-Options: DENY
   Content-Security-Policy-Report-Only: ${csp}
 
 /assets/js/*
@@ -519,7 +518,6 @@ const securityHeaders = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
-  { key: 'X-Frame-Options', value: 'DENY' },
 ];
 const vercel = {
   $schema: 'https://openapi.vercel.sh/vercel.json',
